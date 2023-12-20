@@ -65,7 +65,9 @@ class HomeController extends Controller
     $user = RegUser::find($id);
     $check_review = Testimonial::where('user_id',$id)->first();
     $all_testi_review = Testimonial::join('register_user','testimonials.user_id','register_user.id')
-    ->get(['testimonials.user_id','register_user.name','register_user.email','testimonials.review']);
+    ->orderBy('testimonials.id','desc')
+    ->take(3)
+    ->get(['register_user.image','testimonials.user_id','register_user.name','register_user.email','testimonials.review']);
 
       if($id != null){
         $products = Product::orderBy('id','desc')->take(6)
@@ -77,10 +79,10 @@ class HomeController extends Controller
           $coupon = Coupon::where('status','=',1)->first();
           $wish_products = WishList::where('user_id',$id)->get();
           if(isset($products)){
-            return view('home.homepage',compact('products','coupon','wish_products','id','user','check_review','all_testi_review'));
+            return view('home.homepage',compact('products','coupon','wish_products','id','user','all_testi_review'));
           }
           else{
-            return view('home.homepage',compact('products','coupon','wish_products','id','user','check_review','all_testi_review'));
+            return view('home.homepage',compact('products','coupon','wish_products','id','user','all_testi_review'));
           }
         }
         public function registration(){
@@ -162,9 +164,7 @@ class HomeController extends Controller
 
 
    public function logout(){
-      // session()->forget('username');
       session()->flush();
-      // dd(Session::get('username'));
       return redirect('/');
    }
 

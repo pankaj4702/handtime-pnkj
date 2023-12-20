@@ -1,5 +1,5 @@
- 
- 
+
+
 @include('navigation')
 <section class="product_section ">
     <div class="container-det container">
@@ -11,7 +11,7 @@
             </div>
             <div class="detail-box col-sm-6">
               <h5 style="text-align:left;">
-                <b>{{$product->product_name}}</b> 
+                <b>{{$product->product_name}}</b>
                  </h5>
                  <h5>
                    <span>$</span> {{$product->price}}
@@ -36,7 +36,7 @@
                  <div class="rating-box review">
                   <form >
                     @csrf
-                 
+
                   <div class="form-group">
                     <textarea style="outline:none;border-radius:10px;" class="form-control" id="exampleFormControlTextarea1" name='value' rows="3"></textarea><br>
                     <button type="button" class="wish-btn" style="outline:none;" onclick="add_review({{ $product->id }})">Share</button>
@@ -53,15 +53,16 @@
                 <div>
                   <span style="font-family: Bell MT;">Shipping Fee :</span>  <span>$</span> 0
                 </div>
+                <div id="mydiv"></div>
                 <br>
                 @if(isset($current_coupon))
                 <form action="">
-                  Coupon Code 
+                  Coupon Code
                     <input type="text" class="form-control" id="coupon_code" name="coupon_code" >
-                    
+
                     <input type="hidden" id="product_price" value="{{$product->price}}">
                     <div id="coupon-div" data-value="{{ $current_coupon->discoount }}"></div>
-           
+
                     <div id="above_price" data-value="{{ $current_coupon->above_price }}"></div>
                 </form>
                 @endif
@@ -91,8 +92,20 @@
   <div class="main-review-container">
   @foreach($all_reviews as $review)
     <div class="review-b-box">
-      <div><h3 class="txt-line" style="font-weight: bold;">{{$review->name}}</h3></div>
-      <div><p class="txt-line" >{{ $review->review }}</p></div>
+        <div class="r-call-first">
+        <div class="img-container">
+            @if($review->image == null)
+            <img class="img-container" src="{{ asset('storage/uploads/default_image.png') }}" alt="Image">
+            @else
+            <img class="img-container" src="{{ asset('storage/' . $review->image) }}" alt="Image">
+            @endif
+        </div>
+      <div><h3 class="txt-line" style="font-weight: bold;">{{$review->name}}</h3>
+        <p class="txt-line" >{{ $review->review }}</p>
+    </div>
+
+    </div>
+
     </div><br><br>
     @endforeach
   </div>
@@ -103,21 +116,21 @@
   </div>
   @endif
 </section>
-  
+
   <!-- footer section -->
   @include('footer')
-  
+
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
         document.addEventListener('DOMContentLoaded', function() {
             var numericInput = document.getElementById('pay_value');
 
             numericInput.addEventListener('input', function() {
-                numericInput.value = numericInput.value.replace(/[^0-9]/g, '');       
+                numericInput.value = numericInput.value.replace(/[^0-9]/g, '');
             });
         });
     </script>
-   
+
 
 <script>
    $(document).ready(function () {
@@ -125,13 +138,14 @@
     $('#error2').hide();
     $('#success').hide();
         $('#coupon_code').on('input', function () {
+
             var inputValue = $(this).val();
             var productPrice = $('#product_price').val();
             var myDiv = document.getElementById('coupon-div');
             var dataValue = myDiv.getAttribute('data-value');
              var above_price = document.getElementById('above_price');
             var d_above_price = above_price.getAttribute('data-value');
-            
+
             $.ajax({
                 type: 'POST',
                 url: '/check-coupon',
@@ -147,6 +161,7 @@
                   if (response.price) {
                     $('#error').remove();
                           if ($('#mydiv').find('.discount-price').length === 0) {
+
                         $('#mydiv').append(`<span class='discount-price' style="font-family: Bell MT;">Discount Price :`+`$`+response.price+`</span>`);
                           }
                           $('#pay_value').val(response.price);
@@ -157,7 +172,7 @@
                $('#mydiv').append(`<span id="error"> Incorrect Code</span>`);
                     }
                $('#pay_value').val(response.actualPrice);
-                  } 
+                  }
                 }
             });
         });
@@ -238,12 +253,12 @@
              }
 </script>
 
-  
-
- 
 
 
 
-  
+
+
+
+
 
 

@@ -108,6 +108,10 @@ Route::post('/send-mail',[MailController::class,'index'])->name('sendMail');
 // testmonial
 Route::post('/testimonial-review',[HomeController::class,'index'])->name('tesmtionial_review');
 
+// Profile Image
+Route::post('/add-image',[ProfileController::class,'addImage'])->name('addImage');
+
+
 
 
 

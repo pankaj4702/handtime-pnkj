@@ -168,7 +168,7 @@ class AdminController extends Controller
           ]);
 
           $imagePath = $request->file('image')->store('uploads', 'public');
-
+         dd($imagePath);
           $product = new Product();
       $product->product_name = $request->product_name;
       $product->price = $request->product_price;

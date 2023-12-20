@@ -41,10 +41,7 @@
 
 </head>
 <body>
-    @php
-    $id = session('id');
-    $check_review = \App\Models\Testimonial::where('user_id', $id)->first();
-@endphp
+
     <!-- header section strats -->
     <header class="header_section" >
       <div class="container-fluid">
@@ -83,22 +80,18 @@
               $value = Session::get('username');
               @endphp
                @if(isset($value))
-
-
                <div class="dropdown show">
   <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" style="color:white;" aria-haspopup="true" aria-expanded="false">
    Hii {{$value}}
   </a>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" s>
-    <a class="dropdown-item" href="{{route('profile')}}">Profile</a>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <a class="dropdown-item" href="{{ route('profile') }}">Profile</a>
     <a class="dropdown-item" href="{{ route('orders') }}">Your Orders</a>
-    <a class="dropdown-item" href="{{route('userwishlist')}}">Your Wishlist</a>
-    @if(isset($check_review))
-    <a class="dropdown-item" href="{{ url('/logout')  }}">logout</a>
-    @else
-    <a class="dropdown-item" href="{{ route('logout') }}" data-toggle="modal" data-target="#exampleModal">logout</a>
-    @endif
-  </div>
+    <a class="dropdown-item" href="{{ route('userwishlist') }}">Your Wishlist</a>
+    {{ isset($check_review) ? 'href='.route('logout') : 'data-toggle="modal" data-target="#exampleModal"' }}>logout</a>
+
+</div>
+
   <a href="{{route('cartproduct')}}">
     <button type="button" class="cart_btn" style="outline:none;"  >
                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
@@ -148,30 +141,13 @@
       </div>
     </div>
 @endif
-<!-- </div>   -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-  function user_review(id){
-    var csrfToken = $('meta[name="csrf-token"]').attr('content');
-    var textValue= $('#exampleFormControlTextarea1main').val();
- $.ajax({
-                  url: "{{ route('tesmtionial_review') }}",
-                  type: 'POST',
-                  data:{
-                    _token: csrfToken,
-                    user_id : id,
-                    value : textValue,
-                  },
-                  success: function(response) {
-                      if(response.status == 1){
-                       location.href="{{ route('logout') }}";
-                      }
+<!-- Include jQuery from a CDN -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-                  }
-                });
-  }
-</script>
+<!-- Include Bootstrap 5 from a CDN -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+
 </body>
 
 

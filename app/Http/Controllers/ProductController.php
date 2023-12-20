@@ -20,18 +20,18 @@ class ProductController extends Controller
         $products = Product::where('delete_status','=',1)->get();
         $wish_products = WishList::where('user_id',$id)->get();
         $cart_products = Cart::where('user_id',$id)->get();
-        
+
         // dd($cart_products);
         return view('product.productpage',compact('cart_products','wish_products','products'));
     }
 
     public function addwishlist(Request $req){
-      
+
         $id = $req->productId;
 
         $logged_user = Session::get('email');
         $user= RegUser::where('email',$logged_user)->first();
-       
+
 
         if($user == null){
             return response()->json(['status' => 0,'message'=>'please login first']);
@@ -49,14 +49,14 @@ class ProductController extends Controller
             $cart_user->save();
             return response()->json(['status' => 1,'id'=>$id]);
         }
-        
+
     }
 
     public function removewishlist(Request $req){
         $id = $req->productId;
         $logged_user = Session::get('email');
         $user= RegUser::where('email',$logged_user)->first();
-       
+
         $product_id = WishList::where('user_id',$user->id)->where('product_id',$id)->first();
         if ($product_id) {
             // Delete the record
@@ -84,14 +84,16 @@ class ProductController extends Controller
             ->where('ratings.review','!=',null)
             ->take(4)
             ->get();
+
              return view('product.productdetail',compact('all_reviews','rating','product','current_coupon'));
-         } 
+         }
          else{
             return redirect()->back();
          }
     }
 
     public function checkCoupon(Request $request){
+
     $discount = $request->discount;
     $above_price = $request->above_price;
      $your_coupon = $request->value;
@@ -99,32 +101,33 @@ class ProductController extends Controller
         ->where('status',1)
         ->exists();
         $product_price = $request->price;
+
         if($exists == true){
             if($product_price >= $above_price){
                 $discount_price = $product_price*$discount/100;
                 $main_price = $product_price - $discount_price;
-               
+                    // dd($main_price);
                 return response()->json(['price' => $main_price]);
 
             }
             // else{
             //     return response()->json(['actualPrice' => $product_price]);
             // }
-           
+
         }
         else{
-            
+
               return response()->json(['actualPrice' => $product_price]);
         }
-      
 
-        
+
+
     }
 
     public function couponDeactivate($id){
            $running_coupon = Coupon::where('id',$id)->delete();
            return redirect()->back();
-          
-           
+
+
     }
 }

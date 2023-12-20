@@ -1,7 +1,7 @@
  <!-- Navbar -->
- 
+
  @include('navigation')
-  
+
   <!-- Main Sidebar Container -->
 
 <body class="sub_page" style="margin-top:100px;">
@@ -14,10 +14,10 @@
   <!-- product section -->
   <section class="product_section " >
     <div class="container">
-      
+
       <div class="product_container">
       @foreach($products as $product)
-        @php 
+        @php
         $imageName = $product->image_name;
         $product_id = $product->id;
         @endphp
@@ -27,8 +27,8 @@
               <div class="cart-l">
                 @if($product->status != 0)
                 @foreach($cart_products as $c_product)
-                @if($c_product->product_id == $product_id) 
-               
+                @if($c_product->product_id == $product_id)
+
                 <div class="bo-cart-{{ $product_id }} d-none">
                  <a onclick="add_cart({{ $product_id }})" style="cursor: pointer;" >
                        <i class="fa fa-shopping-cart cart_image"   aria-hidden="true"></i>
@@ -36,7 +36,7 @@
                 </div>
                      @endif
                      @endforeach
-                     
+
                      <div  class="bo-cart-b-{{ $product_id }} " >
                       <a onclick="add_cart({{ $product_id }})" style="cursor: pointer;" >
                        <i class="fa fa-shopping-cart cart_image pnkj"   aria-hidden="true"></i>
@@ -47,7 +47,7 @@
                          @endif
                          </div>
                          @foreach($wish_products as $w_product)
-                      @if($w_product->product_id == $product_id)  
+                      @if($w_product->product_id == $product_id)
                       <div class="heart-{{$product_id}}">
                         <a class="" href="{{route('userwishlist')}}">
                         <i class="fa-solid fa-heart cart_image"></i>
@@ -77,12 +77,10 @@
                 <span>$</span> {{$product->price}}
                 </h5>
               </div>
-              
+
           </div>
           <div class="">
-            {{-- <a href="{{ url('/add-wishlist/' . $product_id) }}"> --}}
               <button class="wish-btn" onclick="add_wishlist({{ $product_id }})">
-              {{-- <button class="wish-btn" onclick="myfunction()"> --}}
                 Add To Wishlist
               </button>
               {{-- </a> --}}
@@ -93,24 +91,15 @@
       @endforeach
     </div>
   </section>
- 
-
- 
-
-  <!-- info section -->
+  <!-- footer section -->
   @include('footer')
 
-  <!-- end info_section -->
-
-  <!-- footer section -->
-  
-  <!-- footer section -->
   <script>
     $(document).ready(function(){
- 
+
       $('#name').on('keyup',function(){
         var value = $(this).val();
-      
+
         $.ajax({
           url:"{{ route('search') }}",
           type:"GET",
@@ -126,20 +115,5 @@
       })
     });
   </script>
-
-
-  <!-- jQery -->
-  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-  <!-- popper js -->
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-  </script>
-  <!-- bootstrap js -->
-  <script type="text/javascript" src="js/bootstrap.js"></script>
-  <!-- custom js -->
-  <script type="text/javascript" src="js/custom.js"></script>
-  <!-- Google Map -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
-  </script>
-  <!-- End Google Map -->
 
 </body>

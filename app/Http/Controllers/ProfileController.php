@@ -13,7 +13,7 @@ class ProfileController extends Controller
     public function index(){
         $email = Session::get('email');
         $user = RegUser::where('email', $email)->first();
-        
+
         return view('profile',compact('user'));
     }
 
@@ -24,12 +24,12 @@ class ProfileController extends Controller
             'phone' => 'required|min:10',
           ]);
 
-          
-          $user = RegUser::find($request->id); 
-    
+
+          $user = RegUser::find($request->id);
+
         // dd($user->password);
         if(isset($request->old_password) && isset($request->new_password) ){
-        
+
             if (Hash::check($request->old_password, $user->password)) {
                     //    dd('done');
                 if ($user) {
@@ -43,7 +43,7 @@ class ProfileController extends Controller
                      }
         }
 
-       
+
           if ($user) {
       $user->name = $request->name;
       $check_phone = RegUser::where('phone',$request->phone)->first();
@@ -75,5 +75,20 @@ class ProfileController extends Controller
     else{
         return redirect('/');
     }
+    }
+
+    public function addImage(Request $request){
+        // $request->validate([
+        //     'image' => 'image|mimes:jpeg,png,jpg',
+        //   ]);
+        $image = $request->file('image');
+    $tempName = uniqid('profile_', true) . '.' . $image->getClientOriginalExtension();
+    $path = $image->storeAs('uploads', $tempName, 'public');
+          $id = Session::get('id');
+          $user = RegUser::where('id',$id)->first();
+          $user->image = $path;
+          $user->save();
+      return response()->json(['status'=>1,'imagePath'=>$path]);
+
     }
 }

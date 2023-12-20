@@ -13,14 +13,14 @@
     <div class="container">
       <div class="product_heading">
         <h2>
-          New Watch Collection
+          Your Wish Product
         </h2>
       </div>
-    
+
       <div class="product_container">
-   
+
       @foreach($product_details as $product)
-        @php 
+        @php
         $imageName = $product->image_name;
         $product_id = $product->id;
         @endphp
@@ -30,20 +30,20 @@
             <div class="cart-l">
              @if($product->status != 0)
               <a href="{{route('addCart',['id'=>$product_id])}}">
-                
+
                     <i class="fa fa-shopping-cart cart_image"   aria-hidden="true"></i>
                   </a>
                 @elseif($product->status == 0)
                       <h6>Not Available</h6>
                       @endif
                       </div>
-                     
+
                     <div class="heart-{{$product_id}} d-none">
                       <a class="" href="{{route('userwishlist')}}">
                     <i class="fa-solid fa-heart cart_image"></i>
                       </a>
                 </div>
-              
+
               </div>
             <div class="img-box">
               <a href="{{ route('productdetail', ['id' => $product_id]) }}">
@@ -62,7 +62,7 @@
                 <span>$</span> {{$product->price}}
                 </h5>
               </div>
-              
+
           </div>
           <div class="">
             {{-- <a href="{{ url('/add-wishlist/' . $product_id) }}"> --}}
@@ -71,168 +71,23 @@
               </button>
               {{-- </a> --}}
             </div>
-          
+
           </div>
         </div>
-       
+
       </div>
       @endforeach
-     
-  
+
+
     </div>
   </section>
 
 
   <!-- end product section -->
-  
-  <!-- info section -->
-  <section class="info_section layout_padding2">
-    <div class="container">
-      <div class="info_logo">
-        <h2>
-          HandTime
-        </h2>
-      </div>
-      <div class="row">
-
-        <div class="col-md-3">
-          <div class="info_contact">
-            <h5>
-              About Shop
-            </h5>
-            <div>
-              <div class="img-box">
-                <img src="images/location-white.png" width="18px" alt="">
-              </div>
-              <p>
-                Address
-              </p>
-            </div>
-            <div>
-              <div class="img-box">
-                <img src="images/telephone-white.png" width="12px" alt="">
-              </div>
-              <p>
-                +01 1234567890
-              </p>
-            </div>
-            <div>
-              <div class="img-box">
-                <img src="images/envelope-white.png" width="18px" alt="">
-              </div>
-              <p>
-                demo@gmail.com
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="info_info">
-            <h5>
-              Informations
-            </h5>
-            <p>
-              ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-            </p>
-          </div>
-        </div>
-
-        <div class="col-md-3">
-          <div class="info_insta">
-            <h5>
-              Instagram
-            </h5>
-            <div class="insta_container">
-              <div class="row m-0">
-                <div class="col-4 px-0">
-                  <a href="">
-                    <div class="insta-box b-1">
-                      <img src="images/w1.png" alt="">
-                    </div>
-                  </a>
-                </div>
-                <div class="col-4 px-0">
-                  <a href="">
-                    <div class="insta-box b-1">
-                      <img src="images/w2.png" alt="">
-                    </div>
-                  </a>
-                </div>
-                <div class="col-4 px-0">
-                  <a href="">
-                    <div class="insta-box b-1">
-                      <img src="images/w3.png" alt="">
-                    </div>
-                  </a>
-                </div>
-                <div class="col-4 px-0">
-                  <a href="">
-                    <div class="insta-box b-1">
-                      <img src="images/w4.png" alt="">
-                    </div>
-                  </a>
-                </div>
-                <div class="col-4 px-0">
-                  <a href="">
-                    <div class="insta-box b-1">
-                      <img src="images/w5.png" alt="">
-                    </div>
-                  </a>
-                </div>
-                <div class="col-4 px-0">
-                  <a href="">
-                    <div class="insta-box b-1">
-                      <img src="images/w6.png" alt="">
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-3">
-          <div class="info_form ">
-            <h5>
-              Newsletter
-            </h5>
-            <form action="">
-              <input type="email" placeholder="Enter your email">
-              <button>
-                Subscribe
-              </button>
-            </form>
-            <div class="social_box">
-              <a href="">
-                <img src="images/fb.png" alt="">
-              </a>
-              <a href="">
-                <img src="images/twitter.png" alt="">
-              </a>
-              <a href="">
-                <img src="images/linkedin.png" alt="">
-              </a>
-              <a href="">
-                <img src="images/youtube.png" alt="">
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- end info_section -->
+@include('footer')
 
   <!-- footer section -->
-  <section class="footer_section">
-    <div class="container">
-      <p>
-        &copy; <span id="displayYear"></span> All Rights Reserved By
-        <a href="https://html.design/">Free Html Templates</a>
-      </p>
-    </div>
-  </section>
+
   <!-- footer section -->
 
   <!-- jQery -->

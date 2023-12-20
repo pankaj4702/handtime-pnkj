@@ -1,49 +1,24 @@
 @include('navigation')
 <style>
-    /* body {
-    background: rgb(99, 39, 120)
-} */
-
-.form-control:focus {
-    box-shadow: none;
-    border-color: #BA68C8
-}
-
-.profile-button {
-    background: rgb(99, 39, 120);
-    box-shadow: none;
-    border: none
-}
-
-.profile-button:hover {
-    background: #682773
-}
-
-.profile-button:focus {
-    background: #682773;
-    box-shadow: none
-}
-
-.profile-button:active {
-    background: #682773;
-    box-shadow: none
-}
-
-.back:hover {
-    color: #682773;
-    cursor: pointer
-}
-
-.labels {
-    font-size: 11px
-}
-
-.add-experience:hover {
-    background: #BA68C8;
-    color: #fff;
+   #cameraIcon {
+    position: absolute;
+    top: 37%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     cursor: pointer;
-    border: solid 1px #BA68C8
+    color: #4a4848;
+    font-size: 24px;
+    background: #a1a0a0;
+    padding: 0px 50px;
+    opacity: 0.6;
+    border-radius: 15px;
 }
+    #fileImage {
+            cursor: pointer;
+        }
+    #fileInput {
+            display: none; /* Hide the input */
+        }
 </style>
 <script>
     jQuery(document).ready(function () {
@@ -60,10 +35,23 @@
     });
 </script>
 <body>
+    <div class="profile-body">
 <div class="container rounded bg-white mt-5 mb-5">
     <div class="row">
         <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">{{$user->name}}</span><span class="text-black-50">{{$user->email}}</span><span> </span></div>
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                <div id="imageContainer">
+                <i id="cameraIcon" class="fas fa-camera" onclick="chooseFile()"></i>
+                @if($user->image == null)
+                <img id="fileImage" class="rounded-circle mt-5" width="150px"  src="{{ asset('storage/uploads/default_image.png') }}" onclick="chooseFile()">
+                @else
+                <img id="fileImage" class="rounded-circle mt-5" width="150px" src="{{ asset('storage/' . $user->image) }}" onclick="chooseFile()">
+                @endif
+                </div>
+                <form id="yourFormId" enctype="multipart/form-data">
+                <input id="fileInput" type="file" onchange="displaySelectedFile(this)" accept="image/*">
+                </form><br>
+                <span class="font-weight-bold">{{$user->name}}</span><span class="text-black-50">{{$user->email}}</span><span> </span></div>
         </div>
         <div class="col-md-5 border-right">
             <div class="p-3 py-5">
@@ -99,13 +87,13 @@
       </form>
         </div>
         <div class="col-md-4">
-            <!-- <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center experience"><span>Edit Experience</span><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i>&nbsp;Experience</span></div><br>
-                <div class="col-md-12"><label class="labels">Experience in Designing</label><input type="text" class="form-control" placeholder="experience" value=""></div> <br>
-                <div class="col-md-12"><label class="labels">Additional Details</label><input type="text" class="form-control" placeholder="additional details" value=""></div>
-            </div> -->
         </div>
     </div>
+    <div class="col-md-4 border-right">
+       <h1 style="text-align: center;">Reviews</h1>
+    </div>
+
+</div>
 </div>
 </div>
 </div>
@@ -125,5 +113,41 @@
         }
     });
     });
+</script>
+<script>
+    // Function to trigger the hidden file input
+    function chooseFile() {
+        document.getElementById('fileInput').click();
+    }
+
+    // Function to display the selected file name (you can customize this)
+    function displaySelectedFile(input) {
+        var file = input.files[0];
+        var fileName = file ? file.name : 'No file chosen';
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+        var formData = new FormData();
+            formData.append('_token', csrfToken);
+            formData.append('image', file);
+        $.ajax({
+                  url: "{{ route('addImage') }}",
+                  type: 'POST',
+                  data: formData,
+                  processData: false,
+                  contentType: false,
+                  success: function(response) {
+                     if(response.status == 1){
+                        // $('#fileImage').addClass('d-none');
+                        $('#fileImage').removeAttr('src');
+                        $('#fileImage').attr('src', "{{ asset('storage/') }}/" + response.imagePath);
+
+
+                     }
+                  },
+                  error: function(error) {
+                    // def-fileImage
+
+                  }
+                });
+    }
 </script>
 </body>
