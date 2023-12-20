@@ -1,0 +1,13 @@
+  <div style="display:flex;justify-content: space-between;margin-right: 200px;">
+          <a href="{{route('addCart',['id'=>$product_id])}}" style="margin-right:100px;">
+                <i class="fa fa-shopping-cart cart_image"   aria-hidden="true"></i>
+              </a>
+            @if($product->status == 0)
+                  <h6>Not Available</h6>
+                  @endif
+                  </div>
+
+
+<section class="product_section " style="margin-top:75px;">
+
+

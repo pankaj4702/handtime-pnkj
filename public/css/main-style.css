@@ -1,0 +1,178 @@
+.cart_btn{
+    font-size: 22px;
+    color: white;
+    padding: 0px 4px;
+    box-shadow: 5px 5px 5px gray;
+    border-radius: 5px;
+    background: #8019c8;
+  }
+  .cart_image{
+    font-size: 25px;
+    color: white;
+    padding: 7px;
+    box-shadow: 3px 2px 5px gray;
+    border-radius: 5px;
+    background: #8019c8;
+  }
+  .heart-img{
+    font-size: 25px;
+    color: rgb(236, 184, 12);
+    padding: 7px;
+    box-shadow: 5px 5px 5px gray;
+    border-radius: 5px;
+    background: #8019c8;
+
+  }
+  .login_btn{
+    border-radius: 15px;
+    border-color: white;
+    border: none;
+    background: #8019c8;
+    padding: 4px 14px;
+    color: white;
+    font-weight: 500;
+  }
+  .register_btn{
+    border-radius: 15px;
+    border: none;
+    padding: 4px 10px;
+    color: white;
+    background: #8019c8;
+  }
+  .navbar {
+    background-color: white;
+    padding: 15px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    margin: 0px -25px;
+    box-shadow: 0px 0px 10px gray;
+  }
+  .more_btn{
+    border: none;
+    margin-bottom: 50px;
+    background: #8019c8;
+    width: 109px;
+    height: 40px;
+    border-radius: 6px;
+    color: white;
+   
+  }
+  button.more_btn:focus {
+    outline: none;
+}
+.more_btn:hover{
+  width: 114px;
+    height: 42px;
+    transition: 0.2s ease;  
+    margin-bottom: 48px;
+}
+.main-dt {
+    display: flex;
+    align-items: baseline;
+    width: 100%;
+    flex-direction: row;
+}
+.main-cart {
+    display: flex;
+    gap: 15em;
+}
+
+.btn-box {
+    width: 50% !important;
+}
+.wish-btn{
+  border: none;
+      padding: 6px 17px;
+      background: #8019c8;
+      color: white;
+      border-radius: 5px;
+      font-family: Bell MT;
+      font-weight: bold;
+      box-shadow: 5px 5px 5px gray;
+
+}
+.product_section {
+    background-color: #f5f5f5;
+    margin-top: 76px;
+}
+.txt-line{
+  font-family: Bell MT;
+   font-size:18px;
+}
+
+/* for rating star */
+.rating-box {
+  position: relative;
+  background: #fff;
+  padding: 15px 115px 15px;
+  border-radius: 25px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+}
+.review{
+  padding: 20px 50px 10px;
+}
+.rating-box header {
+    font-size: 22px;
+    color: #0a0a0a;
+    font-weight: 500;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.rating-box .stars {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+.stars i {
+  color: #e6e6e6;
+  font-size: 35px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.stars i.active {
+  color: #8019c8;
+}
+/* end rating star */
+.img-box{
+  text-align: center;
+  background: white;
+}
+.detail-container{
+  padding:100px 0px;
+
+}
+.payment-box{
+  padding: 2em 3em;
+  background: white;
+}
+.review-section{
+  
+}
+.review-b-box{
+  background:#faf6ed;
+  padding:13px;
+  border-radius: 15px;
+}
+.product_heading-detail{
+    font-size: 28px;
+    background-color: #19c880;
+    width: 220px;
+    text-align: center;
+    color:white;
+    font-weight: bold;
+}
+.footer-con-icon i {
+    margin-right: 10px;
+}
+.subscribe-btn{
+    border: none;
+    padding: 6px 17px;
+    background: #8019c8;
+    color: white;
+    border-radius: 5px;
+    font-family: Bell MT;
+    font-weight: bold;
+  
+}
